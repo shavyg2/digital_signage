@@ -2,6 +2,9 @@
   "name": "digital_signage",
   "version": "1.0.0",
   "dependencies": {
-    "aws-sdk": "2.176.0"
+    "aws-sdk": "2.176.0",
+    "amazon-cognito-identity-js": "2.0.29",
+    "amazon-cognito-identity-js-node": "0.0.3",
+    "node-fetch": "2.2.0"
   }
 }

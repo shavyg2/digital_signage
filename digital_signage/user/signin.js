@@ -1,8 +1,11 @@
 let AWS = require('aws-sdk');
+const AmazonCognitoIdentity= require("amazon-cognito-identity-js");
 const cognito_idp = new AWS.CognitoIdentityServiceProvider();
+
 exports.handler = function (event, context, callback) {
-    const AmazonCognitoIdentity = new AWS.CognitoIdentity(cognito_idp);
-    
+    //const AmazonCognitoIdentity = cognito_idp //new AWS.CognitoIdentity(cognito_idp);
+   
+
     let { username, password } = event;
 
     var authenticationData = {
@@ -10,7 +13,7 @@ exports.handler = function (event, context, callback) {
         Password: password,
     };
 
-    var authenticationDetails = new AWS.AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
     var poolData = {
         UserPoolId: process.env.user_pool_id,
         ClientId: process.env.app_id
@@ -31,7 +34,7 @@ exports.handler = function (event, context, callback) {
         },
 
         onFailure: function (err) {
-            callback(err)
+            callback(err.message)
         },
 
     });
