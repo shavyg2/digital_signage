@@ -4,7 +4,6 @@
   "dependencies": {
     "aws-sdk": "2.176.0",
     "amazon-cognito-identity-js": "2.0.29",
-    "amazon-cognito-identity-js-node": "0.0.3",
-    "node-fetch": "2.2.0"
+    "amazon-cognito-identity-js-node": "0.0.3"
   }
 }

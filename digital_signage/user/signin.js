@@ -26,14 +26,16 @@ exports.handler = function (event, context, callback) {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
+            console.log(result)
             var accessToken = result.getAccessToken().getJwtToken();
 
             /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer */
-            var idToken = result.idToken.jwtToken;
-            callback(null, idToken)
+            //var idToken = result.idToken.jwtToken;
+            callback(null, accessToken)
         },
 
         onFailure: function (err) {
+            console.error(err)
             callback(err.message)
         },
 
