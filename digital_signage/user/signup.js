@@ -1,26 +1,27 @@
 let AWS = require('aws-sdk');
 const cognito_idp = new AWS.CognitoIdentityServiceProvider();
 
-exports.handler = function (event, context, callback) {
+exports.handler = async function (event, context, callback) {
 
-    let {username,password} = event;
-    
+    let { username, password,email } = event;
+
     cognito_idp.adminCreateUser({
-        UserPoolId: process.env.UserPoolId_cognitodigitalsignage,
+        UserPoolId: process.env.user_pool_id,
         Username: `${username}`,
-        DesiredDeliveryMediums: [],
+        DesiredDeliveryMediums: ["EMAIL"],
         ForceAliasCreation: false,
         TemporaryPassword: `${password}`,
-        UserAttributes: [],
-        ValidationData: [{ Name: "", Value: "" }]
+        UserAttributes: [{ Name: "email", Value: `${email}` }],
+        ValidationData: []
     }, function (error, data) {
         if (error) {
             // implement error handling logic here
-            throw error;
-            return callback(error, "User Creation Failed")
+            return callback(error)
         }
+
+        return callback(null,"success")
         // your logic goes within this block
-        callback(null, 'Successfully executed');
     });
+
 
 }
